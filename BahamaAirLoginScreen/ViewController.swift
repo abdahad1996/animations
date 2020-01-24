@@ -89,6 +89,9 @@ class ViewController: UIViewController {
     cloud3.alpha = 0
     cloud4.alpha = 0
 
+    //login
+    loginButton.center.y += 30.0
+    loginButton.alpha = 0.0
     
   }
   
@@ -98,15 +101,17 @@ class ViewController: UIViewController {
         self.heading.center.x = self.heading.center.x + self.view.bounds.width
 
     }
-    UIView.animate(withDuration: 0.5, delay: 0.3, options: [],
-                   animations: {
+    UIView.animate(withDuration: 0.5, delay: 0.3,
+                   usingSpringWithDamping: 0.6, initialSpringVelocity: 0,
+                   options: [], animations: {
                     self.username.center.x += self.view.bounds.width
     },
                    completion: nil
     )
     
-    UIView.animate(withDuration: 0.5, delay: 0.4, options: [],
-                   animations: {
+    UIView.animate(withDuration: 0.5, delay: 0.4,
+                   usingSpringWithDamping: 0.9, initialSpringVelocity: 0,
+                   options: [], animations: {
                     self.password.center.x = self.password.center.x + self.view.bounds.width
     },
                    completion: nil
@@ -143,8 +148,13 @@ class ViewController: UIViewController {
                    completion: nil
     )
     
-    
-    
+    //login
+    UIView.animate(withDuration: 0.5, delay: 0.5,
+                   usingSpringWithDamping: 0.5, initialSpringVelocity: 0,
+                   options: [], animations: {
+                    self.loginButton.center.y -= 30.0
+                    self.loginButton.alpha = 1.0
+    }, completion: nil)
     
   }
   
@@ -152,6 +162,26 @@ class ViewController: UIViewController {
   
   @IBAction func login() {
     view.endEditing(true)
+    //spring animation  with increasing width
+    UIView.animate(withDuration: 1.5, delay: 0.0,
+                   usingSpringWithDamping: 0.2, initialSpringVelocity: 0.0,
+                   options: [], animations: {
+                    self.loginButton.bounds.size.width += 80.0
+    }, completion: nil)
+    //spring animation with increasing height , changin bgclor and adding activity indicator
+    UIView.animate(withDuration: 0.33, delay: 0.0,
+                   usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0,
+                   options: [], animations: {
+                    self.loginButton.center.y += 60.0
+                    self.loginButton.backgroundColor =
+                        UIColor(red: 0.85, green: 0.83, blue: 0.45, alpha: 1.0)
+                    self.spinner.center = CGPoint(
+                        x: 40.0,
+                        y: self.loginButton.frame.size.height/2
+                    )
+                    self.spinner.alpha = 1.0
+    }, completion: nil)
+    
   }
   
   // MARK: UITextFieldDelegate
